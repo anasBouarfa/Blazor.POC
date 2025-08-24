@@ -4,3 +4,18 @@ services:
     build: .
     ports:
       - "8080:8080"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: apppassword
+      POSTGRES_DB: appdb
+    command: -p 8752
+    ports:
+      - "8752:8752"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
